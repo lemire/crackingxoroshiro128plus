@@ -1,0 +1,77 @@
+xorostep : [128] -> [128]
+xorostep state = newstate
+  where
+    s0 = take`{64} state
+    s1 = drop`{64} state
+    s1a = s0 ^ s1
+    s0a = (s0 <<< 55) ^ s1a ^ (s1a << 14)
+    s1b = s1a <<< 36
+    newstate = s0a # s1b
+
+xoroout : [128] -> [64]
+xoroout state = s0 + s1
+  where
+    s0 = take`{64} state
+    s1 = drop`{64} state
+
+xoro : {n} (fin n) => [128] -> [n][64]
+xoro seed = [xoroout state | state <- take`{n} seq ]
+  where
+    seq = [seed] # [xorostep state | state <- seq]
+
+
+unix$ cryptol
+                        _        _
+   ___ _ __ _   _ _ __ | |_ ___ | |
+  / __| '__| | | | '_ \| __/ _ \| |
+ | (__| |  | |_| | |_) | || (_) | |
+  \___|_|   \__, | .__/ \__\___/|_|
+            |___/|_|  version 2.4.0
+
+Loading module Cryptol
+Cryptol> :load xoroshiro.cry
+Loading module Cryptol
+Loading module Main
+Main> :type xoro
+xoro : {n} (fin n) => [128] -> [n][64]
+Main> xoro`{12} 42
+[0x000000000000002a, 0x000002a0000a802a, 0x16500542a0002f6a,
+ 0xa00d72a54a8aaf92, 0xdf9b19680130143f, 0x2380ad0754cd64ca,
+ 0x76a9f6a58413022b, 0x1d7f2d3b15e4e399, 0x9bdbc44ba96833d2,
+ 0x311bd7a6fd19d758, 0x79ba48d92926827e, 0x74fd646b32aeb207]
+
+
+
+Main> [join (reverse (split`{8} a)) | a <- split`{2} (join "Blog about THIS!")]
+[0x6f626120676f6c42, 0x2153494854207475]
+
+
+Cryptol> :set prover = yices
+Cryptol> :set satNum = all
+
+
+
+Main> :sat \s -> xoro`{2} s == [0x6f626120676f6c42, 0x2153494854207475]
+
+
+(\s -> xoro`{2} s == [0x6f626120676f6c42, 0x2153494854207475])
+  0x7509e5ab4bda41e9fa587b751b952a59 = True
+(\s -> xoro`{2} s == [0x6f626120676f6c42, 0x2153494854207475])
+  0xe26e09c1fbc381c78cf4575e6babea7b = True
+(\s -> xoro`{2} s == [0x6f626120676f6c42, 0x2153494854207475])
+  0x0d0efb8993f5022162536596d37a6a21 = True
+
+
+Main> :sat \s -> xoro`{2} s == [join (reverse (split`{8} a)) | a <- split`{2} (join "Cryptol is COOL!")]
+Unsatisfiable
+Main> :sat \s -> xoro`{2} s == [join (reverse (split`{8} a)) | a <- split`{2} (join "Cryptol is Cool!")]
+(\s -> xoro`{2} s == [join (reverse (split`{8} a)) | a <- split`{2} (join "Cryptol is Cool!")])
+  0x0a0e591a679db045165e165a08dbc1fe = True
+
+
+
+Main> :sat \s -> xorostep (xorostep s) == 0x0d0efb8993f5022162536596d37a6a21
+(\s -> xorostep (xorostep s) == 0x0d0efb8993f5022162536596d37a6a21)
+  0x0161bc6718be407a28cd6013bc562e49 = True
+
+
