@@ -41,10 +41,10 @@ s.add(a + b == out1, newa + newb == out2)
 try:
   s.check()
   m = s.model()
-  print(hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper())
+  print("%s %s"%(hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper()))
 except:
   backs = Solver()
   backs.add(a + b == backout1, newa + newb == backout2)
   backs.check()
   m = backs.model()
-  print("      ",hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper())
+  print("      %s    %s   " %(hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper()))

@@ -5,8 +5,8 @@ Given a couple of outputs of xoroshiro128+, you can derive the seed and thus pre
 ## Usage
 
 - I assume you have either macOS or a Linux shell.
-- Install z3, the theorem prover, make sure to include Python support.
+- Install z3, the theorem prover, make sure to include Python support. If you have pip, type ``pip install z3-solver --user``.
 - Type
 ```
-gcc -o xoroshift xoroshift.c && ./xoroshift $(python xorshift.py " Daniel Lemire  ") |hexdump -C|more
+cc -o xoroshift xoroshift.c && ./xoroshift $(python xorshift.py " Daniel Lemire  ") |hexdump -C|more
 ```

@@ -4,7 +4,7 @@
  #include <stdlib.h>
  #include <unistd.h>
  #include <getopt.h>
-
+ #include <stdint.h>
 // xoroshiro generator taken from
 // http://vigna.di.unimi.it/xorshift/xoroshiro128plus.c
 
