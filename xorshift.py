@@ -30,12 +30,9 @@ backout1, backout2 = convertstringtovalues("Sorry,  I can't.");
 def rotl64(x, shift):
     return (x << shift) | LShR(x, 64 - shift)
 
-a = BitVec('a', 64)
-b = BitVec('b', 64)
+a, b = BitVec('a', 64), BitVec('b', 64)
 axorb = a ^ b
-newa = rotl64(a,55) ^ axorb ^ (axorb << 14)
-newb = rotl64(axorb,36)
-
+newa, newb = rotl64(a,55) ^ axorb ^ (axorb << 14), rotl64(axorb,36)
 s = Solver()
 s.add(a + b == out1, newa + newb == out2)
 try:
