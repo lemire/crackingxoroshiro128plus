@@ -10,3 +10,5 @@ Given a couple of outputs of xoroshiro128+, you can derive the seed and thus pre
 ```
 cc -o xoroshift xoroshift.c && ./xoroshift $(python xorshift.py " Daniel Lemire  ") |hexdump -C|more
 ```
+
+We could also use cryptol.
