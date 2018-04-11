@@ -1,4 +1,5 @@
 # crackingxoroshiro128plus
+[![Build Status](https://travis-ci.org/lemire/crackingxoroshiro128plus.png)](https://travis-ci.org/lemire/crackingxoroshiro128plus)
 
 Given a couple of outputs of xoroshiro128+, you can derive the seed and thus predict the outcome at will.
 
