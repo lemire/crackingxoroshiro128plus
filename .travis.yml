@@ -8,4 +8,4 @@ branches:
   only:
     - master
 
-script: cc -o xoroshift xoroshift.c && ./xoroshift $(python xoroshift.py " Daniel Lemire  ") |hexdump -C |head -n 1|grep "Daniel.Lemire"
+script: pip install z3-solver --user && cc -o xoroshift xoroshift.c && ./xoroshift $(python xoroshift.py " Daniel Lemire  ") |hexdump -C |head -n 1|grep "Daniel.Lemire"
