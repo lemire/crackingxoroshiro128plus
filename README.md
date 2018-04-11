@@ -8,7 +8,7 @@ Given a couple of outputs of xoroshiro128+, you can derive the seed and thus pre
 - Install z3, the theorem prover, make sure to include Python support. If you have pip, type ``pip install z3-solver --user``.
 - Type
 ```
-cc -o xoroshift xoroshift.c && ./xoroshift $(python xorshift.py " Daniel Lemire  ") |hexdump -C|more
+cc -o xoroshift xoroshift.c && ./xoroshift $(python xoroshift.py " Daniel Lemire  ") |hexdump -C|more
 ```
 
 We could also use [cryptol](https://github.com/GaloisInc/cryptol).

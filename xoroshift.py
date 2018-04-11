@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# usage : python xorshift.py " Daniel Lemire  "
+# usage : python xoroshift.py " Daniel Lemire  "
 from z3 import *
 
 import sys
