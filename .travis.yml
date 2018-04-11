@@ -1,0 +1,11 @@
+language: c
+sudo: false
+compiler:
+  - gcc
+  - clang
+
+branches:
+  only:
+    - master
+
+script: cc -o xoroshift xoroshift.c && ./xoroshift $(python xoroshift.py " Daniel Lemire  ") |hexdump -C |head -n 1|grep "Daniel.Lemire"
