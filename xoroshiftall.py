@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# credit: achan001
 # usage : python xoroshiftall.py 0 0xdeadbeef
 import sys, z3
 bit64 = 0xffffffffffffffff
