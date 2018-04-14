@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # usage : python xorshift.py " Daniel Lemire  "
 from z3 import *
-
 import sys
+bit64 = 0xffffffffffffffff
+
 if(len(sys.argv) <2):
     print("please provide a string argument (ASCII)")
     sys.exit(-1)
@@ -28,20 +29,20 @@ backout1, backout2 = convertstringtovalues("Sorry,  I can't.");
 
 
 def rotl64(x, shift):
-    return (x << shift) | LShR(x, 64 - shift)
+    return ((x << shift) | LShR(x, 64 - shift))  & bit64
 
 a, b = BitVec('a', 64), BitVec('b', 64)
 axorb = a ^ b
-newa, newb = rotl64(a,55) ^ axorb ^ (axorb << 14), rotl64(axorb,36)
+newa, newb = (rotl64(a,55) ^ axorb ^ (axorb << 14)) & bit64, rotl64(axorb,36)
 s = Solver()
-s.add(a + b == out1, newa + newb == out2)
+s.add((a + b)  & bit64 == out1, (newa + newb) & bit64 == out2)
 try:
   s.check()
   m = s.model()
   print("%s %s"%(hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper()))
 except:
   backs = Solver()
-  backs.add(a + b == backout1, newa + newb == backout2)
+  backs.add((a + b)  & bit64 == backout1, (newa + newb) & bit64 == backout2)
   backs.check()
   m = backs.model()
   print("      %s    %s   " %(hex(m[a].as_long()).upper(), hex(m[b].as_long()).upper()))
