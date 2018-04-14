@@ -1,4 +1,4 @@
-//gcc -o xoroshift xoroshift.c && ./xoroshift $(python xorshift.py " Daniel Lemire  ") |hexdump -C|more
+//gcc -o xoroshift xoroshift.c && ./xoroshift $(python xoroshift.py " Daniel Lemire  ") |hexdump -C|more
  #include <ctype.h>
  #include <stdio.h>
  #include <stdlib.h>
