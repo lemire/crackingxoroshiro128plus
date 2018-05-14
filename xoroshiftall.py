@@ -36,4 +36,4 @@ for i in xrange(1, sys.maxint):
     for j in range(10):         # show predictions
         print hex((x+y) & bit64)
         x, y = xo128(x, y)
-    s.add(x0 != soln[x0], y0 != soln[y0])
+    s.add( z3.Or(x0 != soln[x0], y0 != soln[y0]) )
