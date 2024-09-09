@@ -1,5 +1,4 @@
 # crackingxoroshiro128plus
-[![Build Status](https://travis-ci.org/lemire/crackingxoroshiro128plus.png)](https://travis-ci.org/lemire/crackingxoroshiro128plus)
 
 Xoroshiro128+ is a popular random generator. Given a couple of outputs of xoroshiro128+, you can often derive the seed necessary to generate the desired output. See my post  [“Cracking” random number generators (xoroshiro128+)](https://lemire.me/blog/2017/08/22/cracking-random-number-generators-xoroshiro128/)
 
